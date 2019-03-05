@@ -1,0 +1,36 @@
+# NOTE: update this with your service name
+service: yellowcard-serverless-starter
+description: Yellow Card Serverless Starter API
+
+# serverless-webpack configuration
+# Enable auto-packing of external modules
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  webpack:
+    webpackConfig: ./config/webpack.config.js
+    includeModules: true
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: us-east-1
+  # Loads environmental variables from SSM provided environment variables if stage specified. Otherwise use local environmental variable.
+  # Do not commit your env.yml
+  environment: ${file(env.yml), file(serverless.env.yml):${self:custom.stage}}
+  apiKeys:
+    # Deploy keys as you need. Specify a unique name and stage for keys.
+    - starter-${self:custom.stage}
+functions:
+  hello:
+    handler: src/API.hello
+    events:
+      - http:
+          path: hello
+          method: get
+
+# Use the serverless-webpack plugin to transpile ES6
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-domain-manager

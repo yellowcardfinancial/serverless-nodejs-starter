@@ -34,7 +34,9 @@ export const hello = async (event, context) => {
     }),
   };
 };
+```
 
+``` javascript
 const message = ({ time, ...rest }) => new Promise((resolve, reject) =>
   setTimeout(() => {
     resolve(`${rest.copy} (with a delay)`);
@@ -52,7 +54,7 @@ const message = ({ time, ...rest }) => new Promise((resolve, reject) =>
 To create a new Serverless project.
 
 ``` bash
-$ serverless install --url https://github.com/yellowcard/yellowcard-serverless-starter --name my-project
+$ serverless install --url https://github.com/yellowcardfinancial/yellowcard-serverless-starter --name my-project
 ```
 
 Enter the new directory

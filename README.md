@@ -1,8 +1,8 @@
-# Serverless Node.js Starter
+# Yellow Card Serverless Starter
 
-A Serverless starter that adds ES7 syntax, serverless-offline, environment variables, and unit test support. Part of the [Serverless Stack](http://serverless-stack.com) guide.
+A Serverless starter that adds ES7 syntax, serverless-offline, environment variables, and unit test support.
 
-[Serverless Node.js Starter](https://github.com/AnomalyInnovations/serverless-nodejs-starter) uses the [serverless-webpack](https://github.com/serverless-heaven/serverless-webpack) plugin, [Babel](https://babeljs.io), [serverless-offline](https://github.com/dherault/serverless-offline), and [Jest](https://facebook.github.io/jest/). It supports:
+Uuses the [serverless-webpack](https://github.com/serverless-heaven/serverless-webpack) plugin, [Babel](https://babeljs.io), [serverless-offline](https://github.com/dherault/serverless-offline), and [Jest](https://facebook.github.io/jest/). It supports:
 
 - **ES7 syntax in your handler functions**
   - Use `import` and `export`
@@ -20,9 +20,7 @@ A Serverless starter that adds ES7 syntax, serverless-offline, environment varia
 
 ---
 
-### Demo
-
-A demo version of this service is hosted on AWS - [`https://z6pv80ao4l.execute-api.us-east-1.amazonaws.com/dev/hello`](https://z6pv80ao4l.execute-api.us-east-1.amazonaws.com/dev/hello)
+### Example Handling
 
 And here is the ES7 source behind it
 
@@ -54,7 +52,7 @@ const message = ({ time, ...rest }) => new Promise((resolve, reject) =>
 To create a new Serverless project.
 
 ``` bash
-$ serverless install --url https://github.com/AnomalyInnovations/serverless-nodejs-starter --name my-project
+$ serverless install --url https://github.com/yellowcard/yellowcard-serverless-starter --name my-project
 ```
 
 Enter the new directory
@@ -117,13 +115,3 @@ To add environment variables to your project
 2. Add environment variables for the various stages to `env.yml`.
 3. Uncomment `environment: ${file(env.yml):${self:provider.stage}}` in the `serverless.yml`.
 4. Make sure to not commit your `env.yml`.
-
-### Support
-
-- Send us an [email](mailto:contact@anoma.ly) if you have any questions
-- Open a [new issue](https://github.com/AnomalyInnovations/serverless-nodejs-starter/issues/new) if you've found a bug or have some suggestions.
-- Or submit a pull request!
-
-### Maintainers
-
-Serverless Node.js Starter is maintained by Frank Wang ([@fanjiewang](https://twitter.com/fanjiewang)) & Jay V ([@jayair](https://twitter.com/jayair)). [**Subscribe to our newsletter**](http://eepurl.com/cEaBlf) for updates. Send us an [email](mailto:contact@anoma.ly) if you have any questions.

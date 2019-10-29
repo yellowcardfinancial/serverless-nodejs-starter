@@ -39,6 +39,20 @@ functions:
           path: get/{id}
           method: get
           cors: true
+  offMaintenance: 
+     handler: src/API.updateMaintenanceFalse
+     events:
+      - http: 
+          path : update/maintenance/off/{id} #id == app id 
+          method: patch
+          cors: true
+  onMaintenance : 
+    handler: src/API.updateMaintenanceTrue
+    events: 
+      - http: 
+          path: update/maintenance/on/{id} #id is the app id 
+          method: patch
+          cors: true
 
 # Use the serverless-webpack plugin to transpile ES6
 plugins:

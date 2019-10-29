@@ -12,3 +12,9 @@ test('hello', async () => {
 
   await api.hello(event, context, callback);
 });
+
+test('Update maintenance', async() => {
+  
+  const id = "d85f4dd0-fa46-11e9-846b-c312a9693160"
+  
+})

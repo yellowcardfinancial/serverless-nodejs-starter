@@ -53,3 +53,62 @@ export const getConfig = async (event, context) => {
     
   }
 }
+
+export const updateMaintenanceFalse = async (event, context) => {
+  const params = {
+    TableName : process.env.TABLE_NAME,
+    Key : {
+      id : event.pathParameters.id
+    },
+    UpdateExpression : "SET maintenance = :maintenance",
+    ExpressionAttributeValues : {
+      ":maintenance" : false
+    },
+    ReturnValues : "ALL_NEW"
+  }
+
+  try {
+    let res = await DB.call('update', params)
+
+    return success({
+      status : true,
+      data: res.Attributes
+    })
+  } catch (e) {
+    console.log(e)
+    return failure({
+      status : false,
+      message: "Internal Server Error"
+    })
+    
+  }
+}
+
+export const updateMaintenanceTrue = async (event, context) => {
+  const params = {
+    TableName : process.env.TABLE_NAME,
+    Key : {
+      id : event.pathParameters.id
+    },
+    UpdateExpression : "SET maintenance = :maintenance",
+    ExpressionAttributeValues : {
+      ":maintenance" : true
+    },
+    ReturnValues : "ALL_NEW"
+  }
+
+  try {
+    let res = await DB.call('update', params)
+    return success({
+      status : true,
+      data: res.Attributes
+    })
+  } catch (e) {
+    console.log(e)
+    return failure({
+      status : false,
+      message: "Internal Server Error"
+    })
+    
+  }
+}

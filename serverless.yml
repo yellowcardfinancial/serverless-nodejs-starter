@@ -1,9 +1,12 @@
 # NOTE: update this with your service name
-service: yellowcard-serverless-starter
-description: Yellow Card Serverless Starter API
+service: yellowcard-config-api
+description: YellowCard apps configuration API
 
 # serverless-webpack configuration
 # Enable auto-packing of external modules
+package:
+  individually: true 
+
 custom:
   stage: ${opt:stage, self:provider.stage}
   webpack:
@@ -22,12 +25,20 @@ provider:
     # Deploy keys as you need. Specify a unique name and stage for keys.
     - starter-${self:custom.stage}
 functions:
-  hello:
-    handler: src/API.hello
+  createConfig:
+    handler: src/API.createConfig #Endpoint used to create config for a specific application.
     events:
       - http:
-          path: hello
+          path: create
+          method: post
+          cors : true
+  getConfig: 
+    handler: src/API.getConfig
+    events: 
+      - http: 
+          path: get/{id}
           method: get
+          cors: true
 
 # Use the serverless-webpack plugin to transpile ES6
 plugins:

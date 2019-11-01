@@ -1,5 +1,6 @@
 const slsw = require("serverless-webpack");
 const nodeExternals = require("webpack-node-externals");
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: slsw.lib.entries,
@@ -29,5 +30,11 @@ module.exports = {
       }
     ]
   }
+  // plugins: [
+  //   new CopyPlugin([
+  //     { from: 'src/API.js', to: './' }
+  //   ]),
+  // ],
+
 };
 

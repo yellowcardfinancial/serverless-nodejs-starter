@@ -5,7 +5,7 @@ import * as DB from "./libs/db";
 import uuid from 'uuid'
 
 
-export const createConfig = async (event, context) => {
+export async function createConfig (event, context) {
   const data = JSON.parse(event.body)
   const params = {
     TableName: process.env.TABLE_NAME,
@@ -26,7 +26,7 @@ export const createConfig = async (event, context) => {
 
 }
 
-export const getConfig = async (event, context) => {
+export async function getConfig (event, context) {
   const params = {
     TableName : process.env.TABLE_NAME,
     Key: {
@@ -42,7 +42,7 @@ export const getConfig = async (event, context) => {
     }else{
       return notFound({
         status : false,
-        message: 'Item not found'
+        message: 'App not found'
       })
     }
   } catch (e) {
@@ -54,7 +54,7 @@ export const getConfig = async (event, context) => {
   }
 }
 
-export const updateMaintenanceFalse = async (event, context) => {
+export async function updateMaintenanceFalse  (event, context) {
   const params = {
     TableName : process.env.TABLE_NAME,
     Key : {
@@ -84,7 +84,7 @@ export const updateMaintenanceFalse = async (event, context) => {
   }
 }
 
-export const updateMaintenanceTrue = async (event, context) => {
+export async function updateMaintenanceTrue (event, context) {
   const params = {
     TableName : process.env.TABLE_NAME,
     Key : {

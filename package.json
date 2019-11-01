@@ -20,6 +20,8 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-3": "^6.24.1",
+    "copy-webpack-plugin": "^5.0.4",
+    "graceful-fs": "^4.2.2",
     "jest": "^21.2.1",
     "serverless-domain-manager": "^2.6.13",
     "serverless-offline": "^3.25.6",

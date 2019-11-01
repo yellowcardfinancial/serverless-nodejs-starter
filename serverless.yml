@@ -11,7 +11,7 @@ custom:
   stage: ${opt:stage, self:provider.stage}
   webpack:
     webpackConfig: ./config/webpack.config.js
-    includeModules: true
+    includeModules: false
 
 provider:
   name: aws

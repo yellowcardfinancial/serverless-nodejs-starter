@@ -1,0 +1,6 @@
+documentation:
+  version: '1'
+  title: 'yellowcard-serverless-starter' # The name of the service  
+  description: 'A Node.js starter for the Serverless Framework with async/await and unit test support'
+  models:
+    # Please consult https://wiki.yellowcard.io/#/doc-gen

@@ -27,8 +27,8 @@
     "url": "git+https://github.com/yellowcardfinancial/yellowcard-serverless-starter.git"
   },
   "devDependencies": {
-    "@yellowcard/yellowcard-styling-config": "0.0.4",
     "@shelf/jest-dynamodb": "^1.6.0",
+    "@yellowcard/yellowcard-styling-config": "0.0.4",
     "copy-webpack-plugin": "^5.0.4",
     "eslint": "^6.4.0",
     "eslint-config-prettier": "^6.3.0",
@@ -46,6 +46,7 @@
     "serverless-domain-manager": "^3.3.0",
     "serverless-offline": "^5.11.0",
     "serverless-offline-ssm": "^3.1.0",
+    "serverless-openapi-documentation": "^0.4.0",
     "serverless-plugin-warmup": "^4.7.0-rc.1",
     "serverless-webpack": "^5.3.1",
     "webpack": "^4.41.0",

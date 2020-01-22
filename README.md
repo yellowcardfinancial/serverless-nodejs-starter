@@ -87,7 +87,7 @@ To simulate API Gateway locally using [serverless-offline](https://github.com/dh
 $ serverless offline start
 ```
 
-Run your tests
+To run your tests
 
 ``` bash
 $ npm test
@@ -95,13 +95,17 @@ $ npm test
 
 We use Jest to run our tests. You can read more about setting up your tests [here](https://facebook.github.io/jest/docs/en/getting-started.html#content).
 
-Deploy your project
+To document your functions
+
+- [HOW-TO: Create Yellow Card API Documentation](https://wiki.yellowcard.io/#/doc-gen)
+
+To deploy your project
 
 ``` bash
 $ serverless deploy
 ```
 
-Deploy a single function
+To deploy a single function
 
 ``` bash
 $ serverless deploy function --function hello
@@ -111,7 +115,7 @@ To add another function as a new file to your project, simply add the new file a
 
 To add environment variables to your project
 
-1. Rename `env.example` to `env.yml`.
-2. Add environment variables for the various stages to `env.yml`.
-3. Uncomment `environment: ${file(env.yml):${self:provider.stage}}` in the `serverless.yml`.
-4. Make sure to not commit your `env.yml`.
+1. Rename `serverless.env.example` to `serverless.env.yml`.
+2. Add environment variables for the various stages to `serverless.env.yml`.
+3. Uncomment `environment: ${file(serverless.env.yml):${self:provider.stage}}` in the `serverless.yml`.
+4. Make sure to not commit your `serverless.env.yml`.

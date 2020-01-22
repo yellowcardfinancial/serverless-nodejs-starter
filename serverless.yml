@@ -4,6 +4,7 @@ service: yellowcard-serverless-starter # Always use this format when naming a se
 
 custom:
   accountId: ${ file(serverless.env.yml):${self:custom.stage}.ACCOUNT_ID }
+  documentation: ${file(serverless.doc.yml):documentation} # The documentation file 
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
@@ -46,6 +47,11 @@ functions:
           - dynamodb:PutItem
         Resource: 
           - arn:aws:dynamodb:${self:provider.region}:${self:custom.accountId}:table/yellowcard-item-${self:custom.stage}
+    events:
+      - http:
+          path: saveItem
+          method: post
+          documentation: ${file(serverless.doc.yml):endpoints.saveItem}
  
   # Internal Functions
   saveItemInt:
@@ -95,3 +101,4 @@ plugins:
   - serverless-offline-ssm
   - serverless-offline
   - serverless-plugin-warmup
+  - serverless-openapi-documentation

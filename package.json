@@ -1,47 +1,71 @@
 {
-  "name": "serverless-nodejs-starter",
-  "version": "1.1.0",
+  "name": "yellowcard-communications-api",
+  "version": "1.1.1",
   "description": "A Node.js starter for the Serverless Framework with async/await and unit test support",
-  "main": "handler.js",
+  "main": "main.js",
+  "module": "handler.js",
   "scripts": {
-    "test": "jest --coverage",
+    "sls": "serverless",
+    "start": "sls offline start",
+    "deploy": "serverless deploy",
+    "package": "serverless package",
     "lint": "eslint .",
-  "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix"
+  },
+  "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/",
+    "transform": {
+      ".js": "jest-esm-transformer"
+    },
+    "preset": "@shelf/jest-dynamodb"
   },
   "author": "",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AnomalyInnovations/serverless-nodejs-starter.git"
+    "url": "git+https://github.com/yellowcardfinancial/yellowcard-serverless-starter.git"
   },
   "devDependencies": {
     "@yellowcard/yellowcard-styling-config": "0.0.4",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^10.0.2",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-source-map-support": "^1.0.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-3": "^6.24.1",
-    "eslint": "^5.9.0",
-    "eslint-config-prettier": "^6.1.0",
-    "eslint-plugin-compat": "^2.6.3",
-    "eslint-plugin-es5": "^1.3.1",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-vue": "^4.7.1",
-    "jest": "^21.2.1",
-    "prettier": "^1.15.3",
-    "pretty-quick": "^1.8.0",
-    "serverless-domain-manager": "^2.6.13",
-    "serverless-offline": "^3.25.6",
-    "serverless-webpack": "^5.1.0",
-    "webpack": "^4.16.2",
-    "webpack-node-externals": "^1.6.0"
+    "@shelf/jest-dynamodb": "^1.6.0",
+    "copy-webpack-plugin": "^5.0.4",
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-compat": "^3.3.0",
+    "eslint-plugin-es5": "^1.4.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-vue": "^5.2.3",
+    "istanbul": "^0.4.5",
+    "istanbul-api": "^2.1.6",
+    "istanbul-reports": "^2.2.6",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^1.11.1",
+    "serverless-domain-manager": "^3.3.0",
+    "serverless-offline": "^5.11.0",
+    "serverless-offline-ssm": "^3.1.0",
+    "serverless-plugin-warmup": "^4.7.0-rc.1",
+    "serverless-webpack": "^5.3.1",
+    "webpack": "^4.41.0",
+    "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "babel-runtime": "^6.26.0",
-    "source-map-support": "^0.4.18",
-    "yenv": "^2.1.0"
-  }
+    "aws-param-store": "^3.0.0",
+    "crypto-js": "^3.1.9-1",
+    "esm": "^3.2.25",
+    "form-urlencoded": "^4.0.0",
+    "lambda-log": "^2.3.1",
+    "mailchimp-api-v3": "^1.13.1",
+    "paws-sdk": "^1.0.5",
+    "request": "^2.88.0",
+    "serverless": "^1.52.2",
+    "source-map-support": "^0.5.13"
+  },
+  "bugs": {
+    "url": "https://github.com/yellowcardfinancial/yellowcard-serverless-starter/issues"
+  },
+  "homepage": "https://github.com/yellowcardfinancial/yellowcard-serverless-starter#readme",
+  "keywords": []
 }

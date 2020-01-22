@@ -1,4 +1,4 @@
-import * as handler from '../api';
+import * as handler from '../internal';
 
 test('Internal request test', async () => {
     const event = {
@@ -13,5 +13,5 @@ test('Internal request test', async () => {
         expect(typeof response.body).toBe("string");
     };
 
-    await handler.saveItem(event, context, callback);
+    await handler.saveItemInt(event, context, callback);
 });

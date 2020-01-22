@@ -2,7 +2,7 @@ import enverify from './libs/verify-env';
 import { failure, success } from './libs/response-lib';
 import * as  Item from './modules/Item';
 
-export async function saveItem(event, context) {
+export async function saveItemInt(event, context) {
     isWarm(event.source);
 
     try {

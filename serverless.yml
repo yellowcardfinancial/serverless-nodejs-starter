@@ -1,36 +1,97 @@
-# NOTE: update this with your service name
-service: yellowcard-serverless-starter
-description: Yellow Card Serverless Starter API
+frameworkVersion: ">=1.50.0"
 
-# serverless-webpack configuration
-# Enable auto-packing of external modules
+service: yellowcard-serverless-starter # Always use this format when naming a service
+
 custom:
-  stage: ${opt:stage, self:provider.stage}
+  accountId: ${ file(serverless.env.yml):${self:custom.stage}.ACCOUNT_ID }
   webpack:
-    webpackConfig: ./config/webpack.config.js
+    webpackConfig: ./webpack.config.js
     includeModules: true
+  stage: ${opt:stage, self:provider.stage}
+  domains:
+    prod: api.yellowcard.io
+    staging: staging.api.yellowcard.io
+    dev: dev.api.yellowcard.io
 
 provider:
   name: aws
-  runtime: nodejs8.10
-  stage: dev
+  runtime: nodejs12.x
+  stage: dev # stage environments include dev, staging, and prod
   region: us-east-1
-  # Loads environmental variables from SSM provided environment variables if stage specified. Otherwise use local environmental variable.
-  # Do not commit your env.yml
-  environment: ${file(env.yml), file(serverless.env.yml):${self:custom.stage}}
+  environment: ${file(serverless.env.yml):${self:provider.stage}}
   apiKeys:
-    # Deploy keys as you need. Specify a unique name and stage for keys.
-    - starter-${self:custom.stage}
-functions:
-  hello:
-    handler: src/API.hello
-    events:
-      - http:
-          path: hello
-          method: get
+    - STARTER_API_KEY_${self:provider.stage} # Use something unique and sensible with stage name appendded
+  apiGateway:
+    apiKeySourceType: HEADER
 
-# Use the serverless-webpack plugin to transpile ES6
+iamRoleStatements:
+  - Effect: 'Allow'
+    Action:
+      - ssm:GetParameter
+      - ssm:GetParameters
+      - ssm:GetParametersByPath
+      - logs:CreateLogStream
+      - logs:PutLogEvents
+      - logs:CreateLogGroup
+    Resource: "*"
+
+functions:
+  saveItem:
+    handler: handler.saveItem
+    iamRoleStatementsInherit: true
+    # iamRoleStatementsName: saveItem-role-${self:provider.region}
+    iamRoleStatements:
+      - Effect: "Allow"        
+        Action:
+          - dynamodb:PutItem
+        Resource: 
+          - arn:aws:dynamodb:${self:provider.region}:${self:custom.accountId}:table/yellowcard-item-${self:custom.stage}
+ 
+  # Internal Functions
+  saveItemInt:
+    handler: handler.saveItemInt
+    iamRoleStatementsInherit: true
+    # iamRoleStatementsName: saveItemInt-role-${self:provider.region}
+    iamRoleStatements:
+      - Effect: "Allow"        
+        Action:
+          - dynamodb:PutItem
+          - lambda:InvokeFunction
+          - lambda:InvokeAsync
+        Resource: 
+          - arn:aws:dynamodb:${self:provider.region}:${self:custom.accountId}:table/yellowcard-item-${self:custom.stage}
+          - Ref: saveItemInt # Reference the function instead of using a full ARN
+  
+  # Queue Functions
+  queue:
+    handler: handler.queue
+    iamRoleStatementsInherit: true
+    # iamRoleStatementsName: queue-role-${self:provider.region}
+    iamRoleStatements:
+      - Effect: "Allow"        
+        Action:
+          - dynamodb:PutItem
+          - sqs:ReceiveMessage
+          - sqs:DeleteMessage
+        Resource: 
+          - arn:aws:dynamodb:${self:provider.region}:${self:custom.accountId}:table/yellowcard-item-${self:custom.stage}
+          - arn:aws:sqs:${self:provider.region}:${self:custom.accountId}:yellowcard-items-queue-${self:custom.stage}
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - YellowcardItemsQueue
+              - Arn
+        batchSize: 1
+
+# Best to create infrastructure using code so as to track versions on Git
+resources:
+  - ${file(resources/dynamodb.yml)}
+  - ${file(resources/sqs.yml)}
+
+# After installing a plugin, also make sure to add the plugin to the plugin section below
 plugins:
   - serverless-webpack
+  - serverless-offline-ssm
   - serverless-offline
-  - serverless-domain-manager
+  - serverless-plugin-warmup

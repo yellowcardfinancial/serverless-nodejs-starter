@@ -1,0 +1,14 @@
+Resources:
+  YellowcardItemsTable: # Best to use a format comprising of Resource name with resource type appended to it.
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: yellowcard-item-${self:custom.stage}
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1

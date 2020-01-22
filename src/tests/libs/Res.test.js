@@ -1,4 +1,4 @@
-import { success, created, failure, badRequest, forbidden, notFound } from '../Res'
+import { success, created, failure, badRequest, forbidden, notFound } from '../../libs/Res'
 
 describe('Test Responses', () => {
   it('Success', () => {

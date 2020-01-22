@@ -1,0 +1,5 @@
+Resources:
+   YellowcardItemsQueue:
+      Type: "AWS::SQS::Queue"
+      Properties:
+        QueueName: yellowcard-items-queue-${self:custom.stage}
